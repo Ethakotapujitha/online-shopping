@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Try-On</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three/examples/js/loaders/GLTFLoader.js"></script>
+    <style>
+        body { margin: 0; overflow: hidden; }
+        canvas { display: block; }
+        #controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="controls">
+    <button onclick="applyOutfit('men_two_piece_suit.glb')">Apply Outfit 1</men_two_piece_suit>
+    <button onclick="applyOutfit('lazy_suit.glb')">Apply Outfit 2</button>
+    <button onclick="removeOutfit()">Remove Outfit</button>
+</div>
+
+<script>
+    let scene, camera, renderer, humanModel, outfitModel;
+    
+    function init() {
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Lighting
+        const light = new THREE.AmbientLight(0xffffff, 1);
+        scene.add(light);
+
+        // Load 3D Human Model
+        const loader = new THREE.GLTFLoader();
+        loader.load('formal_dress_for_man_with_full_sleeve.glb', function (gltf) {formal_dress_for_man_with_full_sleeve
+            humanModel = gltf.scene;
+            humanModel.position.set(0, -1, 0);
+            humanModel.scale.set(1, 1, 1);
+            scene.add(humanModel);
+        });
+
+        camera.position.z = 2;
+        
+        // Add rotation functionality
+        document.addEventListener('mousemove', rotateModel);
+
+        animate();
+    }
+
+    function rotateModel(event) {
+        if (humanModel) {
+            let x = (event.clientX / window.innerWidth) * 2 - 1;
+            humanModel.rotation.y = x * Math.PI;  // Rotate based on mouse movement
+        }
+    }
+
+    function applyOutfit(outfitPath) {
+        const loader = new THREE.GLTFLoader();
+        loader.load(outfitPath, function (gltf) {
+            if (outfitModel) scene.remove(outfitModel); // Remove existing outfit
+            outfitModel = gltf.scene;
+            outfitModel.position.set(0, -0.8, 0);
+            outfitModel.scale.set(1.1, 1.1, 1.1);
+            scene.add(outfitModel);
+        });
+    }
+
+    function removeOutfit() {
+        if (outfitModel) {
+            scene.remove(outfitModel);
+            outfitModel = null;
+        }
+    }
+
+    function animate() {
+        requestAnimationFrame(animate);
+        renderer.render(scene, camera);
+    }
+
+    window.addEventListener('resize', () => {
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+    });
+
+    init();
+</script>
+
+</body>
+</html>
