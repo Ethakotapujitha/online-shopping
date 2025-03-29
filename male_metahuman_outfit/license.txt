@@ -1,0 +1,11 @@
+Model Information:
+* title:	Male metahuman outfit
+* source:	https://sketchfab.com/3d-models/male-metahuman-outfit-e002abf459074dfbbb6d97154ed992b8
+* author:	MrRohanGupta404 (https://sketchfab.com/MrRohanGupta404)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Male metahuman outfit" (https://sketchfab.com/3d-models/male-metahuman-outfit-e002abf459074dfbbb6d97154ed992b8) by MrRohanGupta404 (https://sketchfab.com/MrRohanGupta404) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
